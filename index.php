@@ -7,7 +7,7 @@
 
     require('connect.php');
 
-
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,6 +18,9 @@
     <title>X-Men CMS</title>
 </head>
 <body>
-    
+<?php include('header.php'); ?>
+
+
+<?php include('footer.php'); ?>    
 </body>
 </html>

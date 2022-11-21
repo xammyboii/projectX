@@ -4,6 +4,7 @@
  * WEBD-2008 CMS Project
  * Description: Script to connect to the database.
  */
+    session_start();
 
     // Database Connection
     define('DB_DSN','mysql:host=localhost;dbname=serverside;charset=utf8');
@@ -16,6 +17,4 @@
     	print "Error: " . $e->getMessage();
     	die(); // Forced execution
     }
-
-    session_start();
 ?>

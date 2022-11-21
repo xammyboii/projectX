@@ -1,8 +1,8 @@
-/*
- * Name: Xaviery Abados
- * WEBD-2008 CMS Project
- * Description: Header section of the website. Also included the search bar and nav menu.
- */
+<!-- 
+    Name: Xaviery Abados
+    WEBD-2008 CMS Project
+    Description: Header section of the website. Also included the search bar and nav menu.
+-->
 
 <header>
     <h1><a href="index.php">House of X</a></h1>
@@ -11,7 +11,7 @@
 
 <form method="post" action="">
     <label for="user-search">X-Men</label>
-    <input name="user-search" id="user-search">
+    <input name="user-search" id="user-search" placeholder="Search for X">
     <input type="submit" value="Search">
 </form>
 
