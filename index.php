@@ -4,10 +4,15 @@
  * WEBD-2008 CMS Project
  * Description: Home page of the CMS website.
  */
-
     require('connect.php');
 
-    
+    // display all rows from xmen table
+    $query = "SELECT * FROM xmen";
+    $stmt  = $db->prepare($query);
+    $stmt->execute();
+
+    // fetch and display to the page
+    $mutants = $stmt->fetchAll(); 
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,12 +20,29 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>X-Men CMS</title>
+    <title>X-Men CMS: Home</title>
 </head>
 <body>
 <?php include('header.php'); ?>
+<!-- <?php print_r($mutants) ?> -->
 
-
-<?php include('footer.php'); ?>    
+    <main>
+<?php foreach($mutants as $mutant): ?>
+        <div id="member-box">
+            <h2>
+                <a href="mutant.php?x_id=<?= $mutant['x_id'] ?>">
+                    <?= $mutant['x_alias'] ?>
+                </a>
+            </h2>
+<?php if($mutant['x_name'] == null): ?>
+            <h4>Name: (same as alias)</h4>
+<?php else: ?>
+            <h4>Name: <em><?= $mutant['x_name'] ?></em></h4>
+<?php endif ?>
+        </div>
+<?php endforeach ?>
+    </main>
+    
+<?php include('footer.php'); ?> 
 </body>
 </html>
