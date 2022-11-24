@@ -9,7 +9,7 @@
 </header>
 
 <!-- TRIAL. MAY CHANGE. JUST WANT TO SEE THE LOOK FOR NOW -->
-<form method="post" action="">
+<form method="post" action="#">
     <label for="user-search">X-Men</label>
     <input name="user-search" id="user-search" placeholder="Search for X">
     <input type="submit" value="Search">
@@ -24,6 +24,7 @@
 <?php else: ?>
         <li><a href="index.php">Home</a></li>
         <li><a href="login.php">Login</a></li>
+        <li><a href="signup.php">Sign Up</a></li>
 <?php endif ?>
     </ul>
 </nav>
