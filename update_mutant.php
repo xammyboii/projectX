@@ -13,8 +13,43 @@
 
     $stmt->bindValue('x_id', $x_id, PDO::PARAM_INT);
     $stmt->execute();
-
     $mutant = $stmt->fetch();
+
+    // ****************************************************** UPDATE_MUTANT VALIDATION
+    $errorFlag = false;
+    if ($_POST 
+        && isset($_POST['update_mutant']) 
+        && (isset($_POST['x_name']) && !empty(strlen($_POST['x_name'])))
+        && (isset($_POST['x_alias']) && !empty(strlen($_POST['x_alias'])))
+        && (isset($_POST['x_power']) && !empty(strlen($_POST['x_power'])))
+        && (isset($_POST['x_desc']) && !empty(strlen($_POST['x_desc'])))
+        && isset($_POST['x_id'])){
+
+            // Sanitize edited fields
+            $x_alias = filter_input(INPUT_POST, 'x_alias', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $x_name  = filter_input(INPUT_POST, 'x_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $x_power = filter_input(INPUT_POST, 'x_power', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $x_desc  = filter_input(INPUT_POST, 'x_desc', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $x_id    = filter_input(INPUT_POST, 'x_id', FILTER_SANITIZE_NUMBER_INT);
+
+            // Update query
+            $qry = "UPDATE xmen SET x_alias = :x_alias, x_name = :x_name, x_power = :x_power, x_desc = :x_desc WHERE x_id = :x_id";
+            $stmt = $db->prepare($qry);
+
+            // Bind values & execute query
+            $stmt->bindValue(':x_alias', $x_alias);        
+            $stmt->bindValue(':x_name', $x_name);
+            $stmt->bindValue(':x_power', $x_power);
+            $stmt->bindValue(':x_desc', $x_desc);
+            $stmt->bindValue(':x_id', $x_id, PDO::PARAM_INT);
+            $stmt->execute();
+
+            header("Location: index.php");
+    } else {
+        $errorMsg = "An error occurred while processing your edit.";
+        $errorFlag = true;
+
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +63,10 @@
 <?php include('header.php'); ?>
 
     <main>
-        <form method="post" action="validation.php" id="update_mutant_form">
+        <form method="post" action="update_mutant.php" id="update_mutant_form">
+<?php if($errorFlag == true): ?>
+            <div class="error-box"><?= $errorMsg ?></div>
+<?php endif ?>
             <fieldset>
                 <legend>Editing <?= $mutant['x_alias'] ?></legend>
                 <p>

@@ -6,7 +6,41 @@
  */
     require('connect.php');
 
-    // Validation happens in validation.php file
+    $errorFlag = false;
+    if ($_POST && isset($_POST['login'])){
+
+        if (empty($_POST['user_name']) && empty($_POST['user_password'])){
+            $errorMsg = "Both user name & password are Required.";
+            $errorFlag = true;
+
+        } else if (empty($_POST['user_name']) && isset($_POST['user_password'])){
+            $errorMsg = "A user name is Required.";
+            $errorFlag = true;
+
+        } else if (isset($_POST['user_name']) && empty($_POST['user_password'])){
+            $errorMsg = "A password is Required.";
+            $errorFlag = true;
+
+        } else {
+            // If both exists, sanitize user inputs
+            $user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $user_password  = filter_input(INPUT_POST, 'user_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Look for user info
+            $qry = "SELECT * FROM user";
+            $stmt = $db->prepare($qry);
+            $stmt->execute();
+
+            while ($row = $stmt->fetch()){
+                if ($user_name == $row['user_name'] && $user_password == $row['user_password']){
+                    $_SESSION['user_name'] = $row['user_name'];
+                    $_SESSION['admin_access'] = $row['admin_access'];
+
+                    header("Location: index.php");
+                }
+            }
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,9 +54,12 @@
 <?php include('header.php'); ?>
 
     <main>
-        <form action="validation.php" method="post">
+        <form action="login.php" method="post">
             <fieldset>
                 <legend>Login</legend>
+<?php if($errorFlag == true): ?>
+                <div class="error-box"><?= $errorMsg ?></div>
+<?php endif ?>
                 <p>
                     <input type="text" name="user_name" placeholder="User Name"><br>
                 </p>
