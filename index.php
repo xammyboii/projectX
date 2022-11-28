@@ -7,7 +7,7 @@
     require('connect.php');
 
     // display all rows from xmen table
-    $query = "SELECT * FROM xmen";
+    $query = "SELECT * FROM xmen LIMIT 10";
     $stmt  = $db->prepare($query);
     $stmt->execute();
 
@@ -25,15 +25,17 @@
 <body>
 <?php include('header.php'); ?>
 <!-- <?php print_r($mutants) ?> -->
+<!-- <?= $_SESSION['user_name'] ?> -->
 
     <main>
 <?php foreach($mutants as $mutant): ?>
-        <div id="member-box">
+        <div class="mutant-box">
             <h2>
                 <a href="mutant.php?x_id=<?= $mutant['x_id'] ?>">
                     <?= $mutant['x_alias'] ?>
                 </a>
             </h2>
+            
 <?php if($mutant['x_name'] == null): ?>
             <h4>Name: (same as alias)</h4>
 <?php else: ?>
