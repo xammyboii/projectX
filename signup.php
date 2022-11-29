@@ -7,6 +7,26 @@
  */
     require('connect.php');
 
+    $errorFlag = false;
+    if ($_POST && isset($_POST['signup'])){
+        // Ensure all fields are filled in
+        if (empty($_POST['user_name'])){
+            $errorMsg = "User name is required";
+            $errorFlag = true;
+
+        } else if (empty($_POST['user_password'])){
+            $errorMsg = "Password is required";
+            $errorFlag = true;
+
+        } else if ($_POST['user_password'] != $_POST['password_2']){
+            $errorMsg = "Passwords do not match";
+            $errorFlag = true;
+
+        } else {
+            // START HERE!!!!
+        }
+
+    }
 
 ?>
 <!DOCTYPE html>
@@ -24,14 +44,17 @@
         <form method="post" action="signup.php">
             <fieldset>
                 <legend>Sign Up</legend>
+<?php if($errorFlag == true): ?>
+                <div class="error-box"><?= $errorMsg ?></div>
+<?php endif ?>
                 <p>
-                    <input type="text" name="new_user_name" placeholder="User Name"><br>
+                    <input type="text" name="user_name" value="" class="signup-input" placeholder="User Name"><br>
                 </p>
                 <p>
-                    <input type="password" name="new-user_password" placeholder="Password"><br>
+                    <input type="password" name="user_password" class="signup-input" placeholder="Password"><br>
                 </p>
                 <p>
-                    <input type="password" name="new_user_password" placeholder="Confirm Password"><br>
+                    <input type="password" name="password_2" class="signup-input" placeholder="Confirm Password"><br>
                 </p>
                 <button type="submit" name="signup" value="Create User">Sign Up</button>
             </fieldset>
