@@ -27,14 +27,17 @@
             $user_password  = filter_input(INPUT_POST, 'user_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             // Look for user info
-            $qry = "SELECT * FROM user";
+            $qry = "SELECT * FROM user LIMIT 1";
             $stmt = $db->prepare($qry);
             $stmt->execute();
 
             while ($row = $stmt->fetch()){
                 if ($user_name == $row['user_name'] && $user_password == $row['user_password']){
+                    $_SESSION['user_id'] = $row['user_id'];
                     $_SESSION['user_name'] = $row['user_name'];
+                    $_SESSION['user_password'] = $row['user_password'];
                     $_SESSION['admin_access'] = $row['admin_access'];
+                    $_SESSION['active'] = $row['active'];
 
                     header("Location: index.php");
                 }

@@ -7,7 +7,7 @@
     require('connect.php');
 
     // Prepare query selecting the chosen character from xmen table
-    $qry = "SELECT * FROM xmen WHERE x_id = :x_id LIMIT 1";
+    $qry = "SELECT * FROM xmen WHERE x_id = :x_id LIMIT 1"; 
     $stmt = $db->prepare($qry);
 
     // Sanitize $_GET['x_id']

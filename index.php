@@ -25,7 +25,7 @@
 <body>
 <?php include('header.php'); ?>
 <!-- <?php print_r($mutants) ?> -->
-<!-- <?= $_SESSION['user_name'] ?> -->
+<!-- <?= $_SESSION['user_id'] ?> -->
 
     <main>
 <?php foreach($mutants as $mutant): ?>
