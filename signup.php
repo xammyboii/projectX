@@ -14,20 +14,34 @@
             $errorMsg = "User name is required";
             $errorFlag = true;
 
-        } else if (empty($_POST['user_password'])){
+        } else if (empty($_POST['password_1'])){
             $errorMsg = "Password is required";
             $errorFlag = true;
 
-        } else if ($_POST['user_password'] != $_POST['password_2']){
+        } else if ($_POST['password_1'] != $_POST['password_2']){
             $errorMsg = "Passwords do not match";
             $errorFlag = true;
 
         } else {
-            // START HERE!!!!
+            // Sanitize user inputs
+            $user_name = filter_input(INPUT_POST, 'user_name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+            $password  = filter_input(INPUT_POST, 'password_1', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+            // Encrypt password
+            $user_password = password_hash($password, PASSWORD_DEFAULT);
+
+            // Insert new user to database
+            $qry = "INSERT INTO user (user_name, user_password) 
+                    VALUES (:user_name, :user_password)";
+            $stmt = $db->prepare($qry);
+            $stmt->bindValue(':user_name', $user_name);
+            $stmt->bindValue(':user_password', $user_password);
+            $stmt->execute();
+
+            header("Location: login.php");
         }
 
     }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,7 +65,7 @@
                     <input type="text" name="user_name" value="" class="signup-input" placeholder="User Name"><br>
                 </p>
                 <p>
-                    <input type="password" name="user_password" class="signup-input" placeholder="Password"><br>
+                    <input type="password" name="password_1" class="signup-input" placeholder="Password"><br>
                 </p>
                 <p>
                     <input type="password" name="password_2" class="signup-input" placeholder="Confirm Password"><br>
