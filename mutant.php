@@ -41,7 +41,7 @@
             <p>Power: <?= $mutant['x_power'] ?></p>
             <p>Description: <?= $mutant['x_desc'] ?></p>
             
-<?php if(isset($_SESSION['user_name']) && (isset($_SESSION['admin_access']) == 1)): ?>
+<?php if($_SESSION['admin_access'] == 1): ?>
             <a href="update_mutant.php?x_id=<?= $mutant['x_id'] ?>">
                 <button>Edit Bio</button>
             </a>

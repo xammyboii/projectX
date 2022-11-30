@@ -2,7 +2,7 @@
 /*
  * Name: Xaviery Abados
  * WEBD-2008 CMS Project
- * Description: Page that allows logged-in users to add new mutants of
+ * Description: Page that allows admin to add new mutants of
  *      their choice in the website.
  */
     require('connect.php');

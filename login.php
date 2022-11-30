@@ -27,19 +27,23 @@
             $user_password  = filter_input(INPUT_POST, 'user_password', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             // Look for user info
-            $qry = "SELECT * FROM user LIMIT 1";
+            $qry = "SELECT * FROM user";
             $stmt = $db->prepare($qry);
             $stmt->execute();
 
             while ($row = $stmt->fetch()){
-                if ($user_name == $row['user_name'] && $user_password == $row['user_password']){
-                    $_SESSION['user_id'] = $row['user_id'];
+                // Verify password from its hashed form in the database
+                if ($user_name == $row['user_name'] && password_verify($user_password, $row['user_password'])){
                     $_SESSION['user_name'] = $row['user_name'];
-                    $_SESSION['user_password'] = $row['user_password'];
                     $_SESSION['admin_access'] = $row['admin_access'];
                     $_SESSION['active'] = $row['active'];
 
                     header("Location: index.php");
+                    exit;
+                }
+                else {
+                    $errorMsg = "Login Failed. Please, try again.";
+                    $errorFlag = true;
                 }
             }
         }
@@ -70,6 +74,7 @@
                     <input type="password" name="user_password" placeholder="Password"><br>
                 </p>
                 <button type="submit" name="login" value="Login">Login</button>
+                <p>Don't have an account yet? <a href="signup.php">Sign Up</a></p>
             </fieldset>
         </form>
     </main>
