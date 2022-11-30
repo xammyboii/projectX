@@ -21,6 +21,7 @@
         <li><a href="index.php">Home</a></li>
         <li>Welcome, <?= $_SESSION['user_name'] ?></li>
         <li><a href="new_mutant.php">Add New Mutant</a></li>
+        <li><a href="users.php">View Users</a></li>
         <li><a href="logout.php">Logout</a></li>
 
 <?php elseif(isset($_SESSION['user_name']) && $_SESSION['admin_access'] == 0): ?>
@@ -31,7 +32,7 @@
 <?php else: ?>
         <li><a href="index.php">Home</a></li>
         <li><a href="login.php">Login</a></li>
-        
+
 <?php endif ?>
     </ul>
 </nav>
