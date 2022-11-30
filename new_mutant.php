@@ -33,7 +33,7 @@
             $stmt->bindValue(':x_power', $x_power);
             $stmt->bindValue(':x_desc', $x_desc);
             $stmt->bindValue(':user_id', $user_id);
-            $result = $stmt->execute();
+            $stmt->execute();
 
             header("Location: index.php");
         }
