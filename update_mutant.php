@@ -16,7 +16,9 @@
     $mutant = $stmt->fetch();
 
     // ****************************************************** UPDATE_MUTANT VALIDATION
+    $errorMsg = "An error occurred while processing your edit.";
     $errorFlag = false;
+    
     if ($_POST 
         && isset($_POST['update_mutant']) 
         && (isset($_POST['x_name']) && !empty(strlen($_POST['x_name'])))
@@ -45,8 +47,8 @@
             $stmt->execute();
 
             header("Location: index.php");
-    } else {
-        $errorMsg = "An error occurred while processing your edit.";
+    } 
+    else {
         $errorFlag = true;
 
     }
@@ -57,6 +59,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>X-Men CMS: Updating <?= $mutant['x_alias'] ?></title>
 </head>
 <body>
@@ -64,10 +67,10 @@
 
     <main>
         <form method="post" action="update_mutant.php" id="update_mutant_form">
-<?php if($errorFlag == true): ?>
-            <div class="error-box"><?= $errorMsg ?></div>
-<?php endif ?>
             <fieldset>
+<?php if($errorFlag == true): ?>
+                <div class="error-box"><?= $errorMsg ?></div>
+<?php endif ?>
                 <legend>Editing <?= $mutant['x_alias'] ?></legend>
                 <p>
                     <label>Character</label><br>

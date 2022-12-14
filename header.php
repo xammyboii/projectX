@@ -4,16 +4,17 @@
     Description: Header section of the website. Also included the search bar and nav menu.
 -->
 <header>
-    <h1><a href="index.php">House of X</a></h1>
-    <img alt="logo" />
+    <h1><a href="index.php">HOUSE OF X</a></h1>
+    <h3>X-Men Character Bios</h3>
+    <!-- <img src="upload/houseofX.jpg" alt="logo"> -->
 </header>
 
 <!-- TRIAL. MAY CHANGE. JUST WANT TO SEE THE LOOK FOR NOW -->
-<form method="post" action="#">
+<!-- <form method="post" action="#">
     <label for="user-search">X-Men</label>
     <input name="user-search" id="user-search" placeholder="Search for X">
     <input type="submit" value="Search">
-</form>
+</form> -->
 
 <nav>
     <ul id="menu">
