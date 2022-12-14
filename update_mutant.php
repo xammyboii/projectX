@@ -84,7 +84,7 @@
                     $stmt->bindValue(':x_id', $x_id, PDO::PARAM_INT);
                     $stmt->execute();
 
-                    header("Location: index.php");
+                    header("Location: mutant.php?x_id={$x_id}");
                     exit();
                 }
             } 
@@ -92,7 +92,7 @@
                 $x_id = $_POST['x_id'];
                 $image_path = 'upload/' . $_POST['file_image'];
 
-                unlink($_POST['file_image']);
+                unlink($image_path);
 
                 // Unlinked/Removed image variable
                 $x_image = '';
@@ -109,7 +109,7 @@
                 $stmt->bindValue(':x_id', $x_id, PDO::PARAM_INT);
                 $stmt->execute();
 
-                header("Location: index.php");
+                header("Location: mutant.php?x_id={$x_id}");
                 exit();
             }
             else { // WITHOUT File Image Uploaded
@@ -124,7 +124,7 @@
                 $stmt->bindValue(':x_id', $x_id, PDO::PARAM_INT);
                 $stmt->execute();
 
-                header("Location: index.php");
+                header("Location: mutant.php?x_id={$x_id}");
                 exit();
             }
 
@@ -140,7 +140,16 @@
     }
 
     // ************************************************************************ DELETE_MUTANT VALIDATION
-    
+    if ($_POST && isset($_POST['delete_mutant']) && isset($_POST['x_id'])) {
+        $x_id    = filter_input(INPUT_POST, 'x_id', FILTER_SANITIZE_NUMBER_INT);
+
+        $qry = "DELETE FROM xmen WHERE x_id = :x_id LIMIT 1";
+        $stmt = $db->prepare($qry);
+        $stmt->bindValue(':x_id', $x_id, PDO::PARAM_INT);
+        $stmt->execute();
+        header("Location: index.php");
+        exit();
+    }
 
 ?>
 <!DOCTYPE html>
