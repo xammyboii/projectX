@@ -34,22 +34,33 @@
     <main>
         <div class="mutant-bio">
             <h2>X-Men: <?= $mutant['x_alias'] ?></h2>
-<?php if($mutant['x_name'] == null): ?>
+<?php if($mutant['x_image'] != null): ?>
+            <img src="upload/<?= $mutant['x_image'] ?>" alt="mutant" class="mutant-image"/>
+    <?php if($mutant['x_name'] == null): ?>
             <h4>Real Name: (same as alias)</h4>
-<?php else: ?>
+    <?php else: ?>
             <h4>Real Name: <em><?= $mutant['x_name'] ?></em></h4>
-<?php endif ?>
+    <?php endif ?>
+            <p>Power: <?= $mutant['x_power'] ?></p>
+            <p>Description: <?= $mutant['x_desc'] ?></p>
+
+<?php else: ?>
+    <?php if($mutant['x_name'] == null): ?>
+            <h4>Real Name: (same as alias)</h4>
+    <?php else: ?>
+            <h4>Real Name: <em><?= $mutant['x_name'] ?></em></h4>
+    <?php endif ?>
             <p>Power: <?= $mutant['x_power'] ?></p>
             <p>Description: <?= $mutant['x_desc'] ?></p>
             
+<?php endif ?>
 <?php if(isset($_SESSION['user_name']) && $_SESSION['admin_access'] == 1): ?>
             <a href="update_mutant.php?x_id=<?= $mutant['x_id'] ?>">
                 <button>Edit Bio</button>
             </a>
 <?php endif ?>
         </div>
-    </main>
-
 <?php include('footer.php'); ?> 
+    </main>
 </body>
 </html>
