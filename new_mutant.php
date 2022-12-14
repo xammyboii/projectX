@@ -2,8 +2,7 @@
 /*
  * Name: Xaviery Abados
  * WEBD-2008 CMS Project
- * Description: Page that allows admin to add new mutants of
- *      their choice in the website.
+ * Description: Page that allows admin to add new mutants of their choice in the website.
  */
     require('connect.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResize.php');
@@ -11,8 +10,8 @@
 
     $errorFlag = false;
 
-    // ******************************************************************************** Image Upload Functions
-    function file_upload_path($original_filename, $upload_subfolder_name = 'upload'){
+    // ************************************************************************** Image Upload Functions
+    function file_upload_path($original_filename, $upload_subfolder_name = 'upload') {
         $current_folder = dirname(__FILE__);
         $path_segments = [$current_folder, $upload_subfolder_name, basename($original_filename)];
         
@@ -35,8 +34,8 @@
     $file_image_detected = isset($_FILES['file_image']) && ($_FILES['file_image']['error'] === 0);
     $file_error_detected = isset($_FILES['file_image']) && ($_FILES['file_image']['error'] > 0);
 
-    // ******************************************************************* Creating/Adding New X-Men Character
-    if ($_POST && isset($_POST['new_mutant'])){
+    // ************************************************************** Creating/Adding New X-Men Character
+    if ($_POST && isset($_POST['new_mutant'])) {
         if (strlen($_POST['x_alias']) > 0){
             $user_id = $_SESSION['user_id']; // User Id of current Admin
 
@@ -48,12 +47,12 @@
             filter_input(INPUT_POST, 'file_image',FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
             // WITH File Image Uploaded
-            if ($file_image_detected){
+            if ($file_image_detected) {
                 $image_filename 	= $_FILES['file_image']['name'];
                 $temp_image_path 	= $_FILES['file_image']['tmp_name'];
                 $new_image_path 	= file_upload_path($image_filename);
 
-                if (file_is_an_image($temp_image_path, $new_image_path)){
+                if (file_is_an_image($temp_image_path, $new_image_path)) {
                     $img = new \Gumlet\ImageResize($temp_image_path);
                     $img->resizeToWidth(400);
                     $img->save($temp_image_path);
@@ -71,6 +70,7 @@
                     $stmt->bindValue(':x_power', $x_power);
                     $stmt->bindValue(':x_image', $x_image);
                     $stmt->bindValue(':user_id', $user_id);
+                    $stmt->execute();
                     
                     header("Location: index.php");
                     exit();
@@ -84,16 +84,17 @@
                 $stmt->bindValue(':x_desc', $x_desc);
                 $stmt->bindValue(':x_power', $x_power);
                 $stmt->bindValue(':user_id', $user_id);
+                $stmt->execute();
                 
                 header("Location: index.php");
                 exit();
             }
             
-        } elseif (empty($_POST['x_alias'])){
+        } elseif (empty($_POST['x_alias'])) {
             $errorFlag = true;
             $errorMsg = "Character name is required.";
 
-        } elseif ($file_error_detected){
+        } elseif ($file_error_detected) {
             $errorFlag = true;
             $errorMsg = $_FILES['file_image']['error'];
     
@@ -110,8 +111,7 @@
     <title>X-Men CMS: New</title>
 </head>
 <body>
-<?php require('header.php') ?>
-
+<?php include('header.php') ?>
     <main>
         <form method="POST" enctype='multipart/form-data' action="new_mutant.php" id="new_mutant_form">
             <fieldset>
@@ -136,15 +136,15 @@
                     <textarea name="x_desc" id="text_desc"></textarea>
                 </p>
                 <p>
-                    <label for="x_image">Image Upload (optional)</label><br>
-                    <input type="file" name="file_image" id="image">
+                    <label for="file_image">Image Upload (optional)</label><br>
+                    <input type="file" name="file_image">
                 </p>
                 <p>
                     <input type="submit" name="new_mutant" id="add_new_mutant" value="Add New Mutant">
                 </p>
             </fieldset>
         </form>
-<?php require('footer.php') ?>
+<?php include('footer.php') ?>
     </main>
 </body>
 </html>
