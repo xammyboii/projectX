@@ -34,6 +34,7 @@
             while ($row = $stmt->fetch()){
                 // Verify password from its hashed form in the database
                 if ($user_name == $row['user_name'] && password_verify($user_password, $row['user_password'])){
+                    $_SESSION['user_id'] = $row['user_id'];
                     $_SESSION['user_name'] = $row['user_name'];
                     $_SESSION['admin_access'] = $row['admin_access'];
                     $_SESSION['active'] = $row['active'];
@@ -55,6 +56,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>X-Men CMS: Login</title>
 </head>
 <body>

@@ -7,7 +7,7 @@
     require('connect.php');
 
     // display all rows from xmen table
-    $query = "SELECT * FROM xmen LIMIT 10";
+    $query = "SELECT * FROM xmen";
     $stmt  = $db->prepare($query);
     $stmt->execute();
 
@@ -20,11 +20,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>X-Men CMS: Home</title>
 </head>
 <body>
 <?php include('header.php'); ?>
-<!-- <?php print_r($mutants) ?> -->
 <!-- <?= $_SESSION['user_id'] ?> -->
 
     <main>
@@ -43,8 +43,7 @@
 <?php endif ?>
         </div>
 <?php endforeach ?>
-    </main>
-    
 <?php include('footer.php'); ?> 
+    </main>
 </body>
 </html>
