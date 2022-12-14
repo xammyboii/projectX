@@ -1,0 +1,100 @@
+/*
+ * Name: Xaviery Abados
+ * WEBD-2008 CMS Project
+ * Description: Styles for the website.
+ */
+
+ *{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+ }
+
+ body{
+    text-align: center;
+    background: #FFF5F5F5;
+    font-family: 'Proxima Nova', 'Montserrat', sans-serif;
+ }
+
+ /* HEADER */
+ header{
+    justify-content: space-between;
+ }
+    header h1{
+        font-size: 3.5em;
+        font-weight: bolder;
+    }
+    header h3{
+        font-style: italic;
+        padding-bottom: 15px;
+    }
+    header a{
+        text-decoration: none;
+        color: black;
+    }
+    header a:hover{
+        color: #FA0F0F;
+    }
+
+/* NAV MENU */
+#menu{
+    padding-left: 0;
+    list-style: none;
+    margin-bottom: 4px;
+    justify-content: space-around;
+}
+    #menu li{
+        display: inline;
+        font-size: 1.5em;
+    }
+    #menu li a{
+        text-decoration: none;
+        color: #FA0F0F;
+    }
+    #menu li a:hover{
+        text-decoration: underline;
+    }
+    #menu li:not(:last-of-type)::after{
+        content: ' | ';
+        color: #CA3B4E;
+    }
+
+/* MAIN CONTENT */
+main{
+    width: 50%;
+    margin: 10px auto;
+    border: 1px solid #9E9E9E;
+    border-radius: 8px;
+    box-shadow: 1px 1px 3px #A2A2A2, -1px 1px 3px #DFDFDF;
+    background-color: #FFF;
+}
+
+/* For INDEX.PHP */
+.mutant-box{
+    margin: 10px auto;
+    margin-bottom: 20px;
+}
+    .mutant-box h2{
+        font-size: 30px;
+    }
+    .mutant-box a{
+        text-decoration: none;
+        color: #C63C3C;
+        text-shadow: 1px 1px 1.5px #473B32;
+    }
+    .mutant-box a:hover{
+        text-decoration: underline;
+    }
+
+/* For LOGIN.PHP */
+form{
+    margin: 12px auto;
+    display: flex;
+    justify-content: center;
+ }
+
+
+footer{
+    text-align: right;
+    font-size: 20px;
+}
