@@ -4,6 +4,7 @@
  * WEBD-2008 CMS Project
  * Description: Page editing the character bio of a specific X-Men character.
  */
+    require('authenticate.php');
     require('connect.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResize.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResizeException.php');

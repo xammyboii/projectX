@@ -4,6 +4,7 @@
  * WEBD-2008 CMS Project
  * Description: Page that allows admin to add new mutants of their choice in the website.
  */
+    require('authenticate.php');
     require('connect.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResize.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResizeException.php');
