@@ -35,7 +35,7 @@
         $promote_stmt->execute();
 
         header("Location: users.php");
-        exit;
+        exit();
     }
 
     // DELETE User
@@ -72,7 +72,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="xstyles.css">
     <title>X-Men CMS: Users</title>
 </head>
 <body>
@@ -80,7 +80,7 @@
 
     <main>
 <?php foreach($users as $user): ?>
-        <form method="post" action="users.php">
+        <form method="POST">
             <div class="user-box">
                 <label><?= $user['user_name'] ?></label>
                 
@@ -88,19 +88,20 @@
                 <p>Access: Administrator</p>
                 <input type="hidden" name="user_id-1" value="<?= $user['user_id'] ?>">
                 <button type="submit" name="demote">Demote Access</button>
+                <a href="edit_user.php?user_id=<?= $user['user_id'] ?>">Edit User</a>
                 <button type="submit" name="delete" onclick="return confirm('Do you wish to delete this user?')">Delete User</button><br>
                 
 <?php elseif($user['admin_access'] == 0): ?>
                 <p>Access: Regular User</p>
                 <input type="hidden" name="user_id-0" value="<?= $user['user_id'] ?>">
                 <button type="submit" name="promote">Promote Access</button>
+                <a href="edit_user.php?user_id=<?= $user['user_id'] ?>">Edit User</a>
                 <button type="submit" name="delete" onclick="return confirm('Do you wish to delete this user?')">Delete User</button><br>
-        </form>
 <?php endif ?>
             </div>
+        </form>
 <?php endforeach ?>
-    </main>
-
 <?php include('footer.php'); ?> 
+    </main>
 </body>
 </html>

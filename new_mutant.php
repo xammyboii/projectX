@@ -4,10 +4,15 @@
  * WEBD-2008 CMS Project
  * Description: Page that allows admin to add new mutants of their choice in the website.
  */
-    require('authenticate.php');
     require('connect.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResize.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResizeException.php');
+
+    if (!isset($_SESSION['active']) || ($_SESSION['admin_access'] != 1)) {
+
+        header("Location: index.php");
+        exit();
+    }
 
     $errorFlag = false;
 
@@ -108,7 +113,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="xstyles.css">
     <title>X-Men CMS: New</title>
 </head>
 <body>
@@ -121,24 +126,24 @@
 <?php endif ?>
                 <legend>New Mutant</legend>
                 <p>
-                    <label for="x_alias">Character</label><br>
+                    <label for="character">Character</label><br>
                     <input name="x_alias" id="character" autofocus>
                 </p>
                 <p>
-                    <label for="x_name">Name</label><br>
+                    <label for="name">Name</label><br>
                     <input name="x_name" id="name">
                 </p>
                 <p>
-                    <label for="x_power">Power/Ability</label><br>
+                    <label for="power">Power/Ability</label><br>
                     <input name="x_power" id="power">
                 </p>
                 <p>
-                    <label for="x_desc">Description</label><br>
+                    <label for="text_desc">Description</label><br>
                     <textarea name="x_desc" id="text_desc"></textarea>
                 </p>
                 <p>
                     <label for="file_image">Image Upload (optional)</label><br>
-                    <input type="file" name="file_image">
+                    <input type="file" name="file_image" id="file_image">
                 </p>
                 <p>
                     <input type="submit" name="new_mutant" id="add_new_mutant" value="Add New Mutant">

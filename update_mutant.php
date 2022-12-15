@@ -4,10 +4,15 @@
  * WEBD-2008 CMS Project
  * Description: Page editing the character bio of a specific X-Men character.
  */
-    require('authenticate.php');
     require('connect.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResize.php');
     require('\xampp\htdocs\a\php-image-resize-master\lib\ImageResizeException.php');
+
+    if (!isset($_SESSION['active']) || ($_SESSION['admin_access'] != 1)) {
+
+        header("Location: index.php");
+        exit();
+    }
 
     // ********************************************************************* GETTING THE XMEN CHARACTER
     $qry = "SELECT * FROM xmen WHERE x_id = :x_id LIMIT 1";
@@ -159,7 +164,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="xstyles.css">
     <title>X-Men CMS: Updating <?= $mutant['x_alias'] ?></title>
 </head>
 <body>
