@@ -1,3 +1,7 @@
-
+.gitignore
 styles_references.txt
 upload/
+
+# login creds
+# username: admin
+# password: admin
